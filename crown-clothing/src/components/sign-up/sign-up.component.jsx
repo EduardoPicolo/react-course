@@ -12,10 +12,10 @@ class SignUp extends React.Component {
     super()
 
     this.state = {
-      displayName = '',
-      email = '',
-      password = '',
-      confirmPassword = ''
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
     }
   }
 
@@ -33,10 +33,10 @@ class SignUp extends React.Component {
       const { user } = await auth.createUserWithEmailAndPassword(email, password)
       await createUserProfileDocument(user, { displayName })
       this.setState({
-        displayName = '',
-        email = '',
-        password = '',
-        confirmPassword = ''
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
       })
     } catch (error) {
       console.log(error)
@@ -60,7 +60,7 @@ class SignUp extends React.Component {
             type='text'
             name='displayName'
             value={displayName}
-            onChange={handleChange}
+            onChange={this.handleChange}
             label='Display name'
             required
           >
@@ -69,7 +69,7 @@ class SignUp extends React.Component {
             type='email'
             name='email'
             value={email}
-            onChange={handleChange}
+            onChange={this.handleChange}
             label='Email'
             required
           >
@@ -78,7 +78,7 @@ class SignUp extends React.Component {
             type='password'
             name='password'
             value={password}
-            onChange={handleChange}
+            onChange={this.handleChange}
             label='Password'
             required
           >
@@ -87,7 +87,7 @@ class SignUp extends React.Component {
             type='password'
             name='confirmPassword'
             value={confirmPassword}
-            onChange={handleChange}
+            onChange={this.handleChange}
             label='Confirm password'
             required
           >
