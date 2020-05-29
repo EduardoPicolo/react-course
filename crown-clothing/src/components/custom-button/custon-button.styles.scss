@@ -22,6 +22,11 @@
     border: 1px solid black;
   }
 
+  &:active {
+    transform: scale(0.95);
+    transition: 0.1s;
+  }
+
   &.inverted {
     background-color: white;
     color: black;
