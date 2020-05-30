@@ -7,6 +7,10 @@
     font-size: 28px;
     margin-bottom: 25px;
     color: #4a4a4a;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .preview {
