@@ -1,0 +1,30 @@
+.Toastify__toast {
+   font-family: "Open Sans Condensed", sans-serif;
+   font-size: 1.05rem;
+   font-weight: 600;
+   padding: 0.7rem 1rem;
+   box-shadow: 1px 3px 4px rgba(61, 61, 61, 0.6), 1px 1px 1px rgba(60, 60, 60, 0.3);
+
+   @media (max-width: 600px) {
+     margin: 0 auto;
+     margin-bottom: 1rem;
+     width: 80%;
+   }
+ }
+ .Toastify__toast--dark {
+   background-color: #3E2753;
+ }
+ .Toastify__toast--default {
+    color: #444;
+ }
+ .Toastify__toast--success {
+   background-color: #239875;
+ }
+ .Toastify__toast--error {
+   background-color: #F4685E;
+ }
+
+ .Toastify__toast-container--top-right {
+   position: fixed;
+   top: 3rem;
+ }

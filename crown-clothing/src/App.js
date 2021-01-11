@@ -11,6 +11,11 @@ import ShopPage from './pages/shop/shop.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
 import CheckoutPage from './pages/checkout/checkout.component'
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './assets/toast.scss'
+import { toast } from 'react-toastify';
+
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/user/user.actions'
 import { selectCurrentUser } from './redux/user/user.selectors'
@@ -23,6 +28,7 @@ class App extends React.Component {
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
+        toast.success(`Welcome, ${userAuth.displayName}!`)
         const userRef = await createUserProfileDocument(userAuth)
 
         userRef.onSnapshot(snapShot => {
@@ -55,6 +61,15 @@ class App extends React.Component {
           }
           />
         </Switch>
+        <ToastContainer
+          position="bottom-right"
+          closeButton={false}
+          hideProgressBar
+          pauseOnFocusLoss
+          pauseOnHover
+          newestOnTop={false}
+          autoClose={3500}
+        />
       </div>
     )
   }
