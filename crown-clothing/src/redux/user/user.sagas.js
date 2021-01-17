@@ -5,7 +5,9 @@ import {
 	signInSuccess,
 	signInFailure,
 	signOutSuccess,
-	signOutFailure
+	signOutFailure,
+	signUpSuccess,
+	signUpFailure
 } from './user.actions';
 
 import {
@@ -22,7 +24,8 @@ export function* getSnapShotFromUserAuth(userAuth) {
 		const userRef = yield call(createUserProfileDocument, userAuth);
 		const userSnapShot = yield userRef.get();
 		yield put(signInSuccess({ id: userSnapShot.id, ...userSnapShot.data() }));
-		yield call(toast, `Welcome, ${userSnapShot.data().displayName}`);
+		// yield call(toast, `Welcome, ${userSnapShot.data().displayName}`);
+		yield toast(`Welcome, ${userSnapShot.data().displayName}`)
 	} catch (error) {
 		yield put(signInFailure(error));
 	}
@@ -60,9 +63,22 @@ export function* signOut() {
 	try {
 		yield auth.signOut();
 		yield put(signOutSuccess());
-		yield call(toast, 'Volte Logo!')
+		yield call(toast, 'Volte Logo!');
 	} catch (error) {
 		yield put(signOutFailure(error));
+	}
+}
+
+export function* signUp({ payload: { email, displayName, password } }) {
+	try {
+		const { user } = yield auth.createUserWithEmailAndPassword(
+			email,
+			password
+		);
+		yield put(signUpSuccess());
+		yield getSnapShotFromUserAuth({ ...user, displayName });
+	} catch (error) {
+		yield put(signUpFailure(error));
 	}
 }
 
@@ -82,11 +98,16 @@ export function* onSignOutStart() {
 	yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
 
+export function* onSignUpStart() {
+	yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
+}
+
 export function* userSagas() {
 	yield all([
 		call(onGoogleSignInStart),
 		call(onEmailSignInStart),
 		call(onCheckUserSession),
-		call(onSignOutStart)
+		call(onSignOutStart),
+		call(onSignUpStart)
 	]);
 }
